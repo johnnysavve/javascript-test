@@ -64,6 +64,7 @@ function biggest (array) {
  * start up to, but not including, end
  * 
  * YOU HAVE TO IMPLEMENT YOUR OWN ALGORITHM HERE!!!
+ * DON'T USE ANY 3RD PARTY LIBRARIES.
  * 
  * @example
  * 
@@ -81,6 +82,7 @@ function range (start, end) {
  * Recursively flattens array.
  * 
  * YOU HAVE TO IMPLEMENT YOUR OWN ALGORITHM HERE!!!
+ * DON'T USE ANY 3RD PARTY LIBRARIES.
  * 
  * @example
  * 
