@@ -9,9 +9,8 @@ npm version 6.1.0
 
 ## Installation
 
-1. Fork the repository to your github account.
-2. Clone the repository to your local.
-3. Under the root directory, run ```npm install``` to install all dependencies.
+1. Fork and clone the repository.
+2. Under the root directory, run ```npm install``` to install all dependencies.
 
 ## Part 1
 
