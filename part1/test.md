@@ -1,4 +1,4 @@
-##React interview questions
+## React interview questions
 
 1. What is state and props in reactjs?
 
