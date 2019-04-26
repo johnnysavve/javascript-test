@@ -4,8 +4,7 @@
   "description": "savve js interview test",
   "main": "index.js",
   "scripts": {
-    "test:part1": "node ./node_modules/mocha/bin/mocha ./part1/test.js || true",
-    "test:part2": "node ./node_modules/http-server/bin/http-server ./part2/"
+    "test:part2": "node ./node_modules/mocha/bin/mocha ./part2/test.js"
   },
   "repository": {
     "type": "git",

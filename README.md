@@ -14,17 +14,17 @@ npm version 6.1.0
 
 ## Part 1
 
-Complete all the functions in ```part1/practice.js``` except function ```dummy```.
+Complete all the functions in ```part2/practice.js``` except function ```dummy```.
 
-You can run ```npm run test:part1``` under the root directory to verify if your implementation is correct.
+You can run ```npm run test:part2``` under the root directory to verify if your implementation is correct.
 
 ## Part 2
 
-Build a webpage based on the provided concept ```part2/concept.png```.
+Build a webpage based on the provided concept ```part3/concept.png```.
 
 You also have been provided ```index.html```,```app.js```,```app.css```.
 
-You can run ```npm run test:part2``` to start the local server.
+You can run ```npm run test:part3``` to start the local server.
 
 ## What we expect
 
