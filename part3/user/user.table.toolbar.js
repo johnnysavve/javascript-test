@@ -8,32 +8,8 @@ import IconButton from '@material-ui/core/IconButton';
 import Tooltip from '@material-ui/core/Tooltip';
 import DeleteIcon from '@material-ui/icons/Delete';
 import CachedIcon from '@material-ui/icons/Cached';
-import { lighten } from '@material-ui/core/styles/colorManipulator';
 
-const toolbarStyles = theme => ({
-    root: {
-        paddingRight: theme.spacing.unit
-    },
-    highlight:
-        theme.palette.type === 'light'
-            ? {
-                color: theme.palette.secondary.main,
-                backgroungColor: lighten(theme.palette.secondary.light, 0.85)
-            }
-            :   {
-                color: theme.palette.text.primary,
-                backgroundColor: theme.palette.secondary.dark
-            },
-    spacer: {
-        flex: '1 1 100%'
-    },
-    actions: {
-        color: theme.palette.secondary
-    },
-    title: {
-        flec: '0 0 auto'
-    }
-})
+import { toolbarStyles } from './user.style';
 
 class UserTableToolBar extends React.Component {
     render() {
@@ -46,7 +22,7 @@ class UserTableToolBar extends React.Component {
             >
                 <div className={classes.title}>
                     {numSelected > 0 ? (
-                        <Typography color="inherit" variant="subtitle">
+                        <Typography color="inherit" variant="subtitle1">
                             {numSelected} selected
                         </Typography>
                     ) : (
@@ -64,8 +40,8 @@ class UserTableToolBar extends React.Component {
                             </IconButton>
                         </Tooltip>
                     ) : (
-                        <Tooltip title="Cached">
-                            <IconButton aria-label="Cached">
+                        <Tooltip title="Refresh">
+                            <IconButton aria-label="Refresh">
                                 <CachedIcon/>
                             </IconButton>
                         </Tooltip>

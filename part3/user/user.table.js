@@ -1,29 +1,14 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
+import { withStyles } from '@material-ui/core/styles';
 
 import UserTableHead from './user.table.head';
 import UserTableToolBar from './user.table.toolbar';
-
-const styles = theme => ({
-    container: {
-        width: '100%',
-        marginTop: theme.spacing.unit * 3,
-        overflowX: 'auto',
-    },
-    table: {
-        minWidth: 700
-    },
-    tableWrapper: {
-        overflowX: 'auto'
-    }
-})
+import UserTableBody from './user.table.body';
+import UserTablePagination from './user.table.pagination';
+import { tableStyles } from './user.style';
 
 let id = 0;
 function createUser(name, aboutMe, location) {
@@ -38,44 +23,101 @@ const rows = [
     createUser('Juvia Lockser', 'Mage of Fairy Tail and is a former S-Class Mage of the now-disbanded Phantom Lord.', 'Fairy Tail'),
     createUser('Jon Snow', 'My real name is Aegon Targaryen. King in the North. I know nothing ;)', 'Winterfell'),
     createUser('Daenerys Targaryen', 'Widow to Khal Drogo. Flirting with Daario Naharis. Friendzoned Jorah Mormont. In relationship with my nephew.', 'Essos'),
+    createUser('Ned Stark', 'House Stark. Lord of Winterfell and Warden of the North, becomes the Hand of the King after Lord Jon Arryn\'s death', 'Winterfell'),
+    createUser('Robert Baratheon', 'House Baratheon. King of the Seven Kingdoms after leading a rebellion against Aerys II Targaryen.', 'King\'s Landing'),
+    createUser('Jaime Lannister', 'House Lannister. Member of the Kingsguard and an exceptionally skilled swordsman.', 'Casterly Rock'),
+    createUser('Catelyn Stark', 'House Stark and House Tully. Lady of Winterfell, is the wife of Lord Eddard Stark.', 'Winterfell'),
+    createUser('Cersei Lannister', 'House Lannister and House Baratheon. Queen of the Seven Kingdoms of Westeros, is the wife of King Robert Baratheon.', 'King\'s Landing'),
 ];
 
 class UserTable extends Component {
+    state = {
+        order: 'asc',
+        orderBy: 'id',
+        selected: [],
+        data: rows,
+        page: 0,
+        rowsPerPage: 5
+    };
 
     onRequestSort = (event, property) => {
+        const orderBy = property;
+        let order = 'desc';
 
+        if (this.state.orderBy === property && this.state.order === 'desc') {
+            order = 'asc';
+        }
+
+        this.setState({ order, orderBy });
     };
 
     onSelectAll = event => {
+        if (event.target.checked) {
+            this.setState(state => ({ selected: state.data.map(m => m.id) }));
+            return;
+        }
+        this.setState({ selected: [] });
+    };
 
+    onClick = (event, id) => {
+        const { selected } = this.state;
+        const selectedIndex = selected.indexOf(id);
+        let newSelected = [];
+
+        if (selectedIndex === -1) {
+            newSelected = newSelected.concat(selected, id);
+        } else if (selectedIndex === 0) {
+            newSelected = newSelected.concat(selected.slice(1));
+        } else if (selectedIndex === selected.length - 1) {
+            newSelected = newSelected.concat(selected.slice(0, -1));
+        } else if (selectedIndex > 0) {
+            newSelected = newSelected.concat(
+                selected.slice(0, selectedIndex),
+                selected.slice(selectedIndex + 1),
+            );
+        }
+
+        this.setState({ selected: newSelected });
+    }
+
+    onChangePage = (event, page) => {
+        this.setState({ page });
+    };
+
+    onChangeRowsPerPage = event => {
+        this.setState({ page: 0, rowsPerPage: event.target.value });
     };
 
     render() {
         const { classes: cls } = this.props;
+        const { data, order, orderBy, selected, page, rowsPerPage } = this.state;
         return (
-            <Paper className={cls.container}>
-                <UserTableToolBar numSelected={0}/>
+            <Paper className={cls.root}>
+                <UserTableToolBar numSelected={selected.length} />
                 <div className={cls.tableWrapper}>
                     <Table className={cls.table}>
                         <UserTableHead
-                            numSelected={0}
-                            order={'asc'}
-                            orderBy={'id'}
+                            numSelected={selected.length}
+                            order={order}
+                            orderBy={orderBy}
                             onSelectAll={this.onSelectAll}
                             onRequestSort={this.onRequestSort}
-                            rowCount={5}
+                            rowCount={data.length}
                         />
-                        {/* I STOPPED HERE - On Going */}
-                        <TableBody>
-                            {rows.map(row => (
-                                <TableRow key={row.id}>
-                                    <TableCell component="th" scope="row">{row.id}</TableCell>
-                                    <TableCell>{row.name}</TableCell>
-                                    <TableCell>{row.aboutMe}</TableCell>
-                                    <TableCell>{row.location}</TableCell>
-                                </TableRow>
-                            ))}
-                        </TableBody>
+                        <UserTableBody
+                            data={data}
+                            selected={selected}
+                            onClick={this.onClick}
+                            page={page}
+                            rowsPerPage={rowsPerPage}
+                        />
+                        <UserTablePagination
+                            count={data.length}
+                            rowsPerPage={rowsPerPage}
+                            page={page}
+                            onChangePage={this.onChangePage}
+                            onChangeRowsPerPage={this.onChangeRowsPerPage}
+                        />
                     </Table>
                 </div>
             </Paper>
@@ -87,4 +129,4 @@ UserTable.propTypes = {
     classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(UserTable);
+export default withStyles(tableStyles)(UserTable);

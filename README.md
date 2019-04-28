@@ -12,13 +12,13 @@ npm version 6.1.0
 1. Fork and clone the repository.
 2. Under the root directory, run ```npm install``` to install all dependencies.
 
-## Part 1
+## Part 2
 
 Complete all the functions in ```part2/practice.js``` except function ```dummy```.
 
 You can run ```npm run test:part2``` under the root directory to verify if your implementation is correct.
 
-## Part 2
+## Part 3
 
 Build a webpage based on the provided concept ```part3/concept.png```.
 
