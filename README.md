@@ -14,11 +14,15 @@ npm version 6.1.0
 
 ## Part 1
 
+Complete all written reactjs questions
+
+## Part 2
+
 Complete all the functions in ```part1/practice.js``` except function ```dummy```.
 
 You can run ```npm run test:part1``` under the root directory to verify if your implementation is correct.
 
-## Part 2
+## Part 3
 
 Build a webpage based on the provided concept ```part2/concept.png```.
 
