@@ -9,14 +9,14 @@ import Tooltip from '@material-ui/core/Tooltip';
 import TableSortLabel from '@material-ui/core/TableSortLabel';
 
 const rows = [
-    {id: 'id', numeric: true, disablePadding: true, label: 'ID'},
-    {id: 'name', numeric: false, disablePadding: false, label: 'Name'},
-    {id: 'aboutMe', numeric: false, disablePadding: false, label: 'About Me'},
-    {id: 'location', numeric: false, disablePadding: false, label: 'Location'}
+    { id: 'id', numeric: true, disablePadding: true, label: 'ID' },
+    { id: 'name', numeric: false, disablePadding: false, label: 'Name' },
+    { id: 'aboutMe', numeric: false, disablePadding: false, label: 'About Me' },
+    { id: 'location', numeric: false, disablePadding: false, label: 'Location' }
 ];
 
 class UserTableHead extends React.Component {
-    createSortHandler = propert => event => {
+    createSortHandler = property => event => {
         this.props.onRequestSort(event, property);
     };
 
@@ -28,9 +28,9 @@ class UserTableHead extends React.Component {
                 <TableRow>
                     <TableCell padding="checkbox">
                         <Checkbox
-                            indeterminate = {numSelected > 0 && numSelected < rowCount}
-                            checked = {numSelected === rowCount}
-                            onChange = {onSelectAll}
+                            indeterminate={numSelected > 0 && numSelected < rowCount}
+                            checked={numSelected === rowCount}
+                            onChange={onSelectAll}
                         />
                     </TableCell>
                     {rows.map(

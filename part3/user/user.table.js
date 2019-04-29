@@ -31,14 +31,22 @@ const rows = [
 ];
 
 class UserTable extends Component {
-    state = {
-        order: 'asc',
-        orderBy: 'id',
-        selected: [],
-        data: rows,
-        page: 0,
-        rowsPerPage: 5
-    };
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            order: 'asc',
+            orderBy: 'id',
+            selected: [],
+            data: rows,
+            page: 0,
+            rowsPerPage: 5,
+            rowEdit: '',
+            rowField: ''
+        };
+        this.onRequestEdit = this.onRequestEdit.bind(this);
+        this.onCloseEdit = this.onCloseEdit.bind(this);
+    }
 
     onRequestSort = (event, property) => {
         const orderBy = property;
@@ -50,6 +58,30 @@ class UserTable extends Component {
 
         this.setState({ order, orderBy });
     };
+
+    desc = (a, b, orderBy) => {
+        if (b[orderBy] < a[orderBy]) {
+            return -1;
+        }
+        if (b[orderBy] > a[orderBy]) {
+            return 1;
+        }
+        return 0;
+    }
+
+    stableSort = (array, cmp) => {
+        const stabilizedThis = array.map((el, index) => [el, index]);
+        stabilizedThis.sort((a, b) => {
+            const order = cmp(a[0], b[0]);
+            if (order !== 0) return order;
+            return a[1] - b[1];
+        });
+        return stabilizedThis.map(el => el[0]);
+    }
+
+    getSorting = (order, orderBy) => {
+        return order === 'desc' ? (a, b) => this.desc(a, b, orderBy) : (a, b) => -this.desc(a, b, orderBy);
+    }
 
     onSelectAll = event => {
         if (event.target.checked) {
@@ -88,9 +120,21 @@ class UserTable extends Component {
         this.setState({ page: 0, rowsPerPage: event.target.value });
     };
 
+    onRequestEdit(row, column, e) {
+        e.stopPropagation();
+        e.preventDefault();
+        this.setState({ rowEdit: row.id, rowField: column });
+    }
+
+    onCloseEdit(row, column, e) {
+        e.stopPropagation();
+        e.preventDefault();
+        this.setState({ rowEdit: -1, rowField: '' });
+    }
+
     render() {
         const { classes: cls } = this.props;
-        const { data, order, orderBy, selected, page, rowsPerPage } = this.state;
+        const { data, order, orderBy, selected, page, rowsPerPage, rowEdit, rowField } = this.state;
         return (
             <Paper className={cls.root}>
                 <UserTableToolBar numSelected={selected.length} />
@@ -110,6 +154,14 @@ class UserTable extends Component {
                             onClick={this.onClick}
                             page={page}
                             rowsPerPage={rowsPerPage}
+                            stableSort={this.stableSort}
+                            getSorting={this.getSorting}
+                            order={order}
+                            orderBy={orderBy}
+                            rowEdit={rowEdit}
+                            rowField={rowField}
+                            onRowEdit={this.onRequestEdit}
+                            onRowEditClose={this.onCloseEdit}
                         />
                         <UserTablePagination
                             count={data.length}
