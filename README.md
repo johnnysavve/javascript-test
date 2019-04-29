@@ -33,6 +33,6 @@ You can run ```npm run test:part2``` to start the local server.
 ## What we expect
 
 1. Please commit with meaningful message, we'd like to see how well you use git.
-2. Please finish part 1 first and let us know when you finish it.
-3. You can spend couple more days on part 2 and we'd like to hear what kind of technologies you have used.
+2. Please finish part 1 and part 2 first and let us know when you finish it.
+3. You can spend couple more days on part 3 and we'd like to hear what kind of technologies you have used.
 
