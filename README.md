@@ -28,7 +28,7 @@ Build a webpage based on the provided concept ```part3/concept.png```.
 
 You also have been provided ```index.html```,```app.js```,```app.css```.
 
-You can run ```npm run test:part2``` to start the local server.
+You can run ```npm run test:part3``` to start the local server.
 
 ## What we expect
 
